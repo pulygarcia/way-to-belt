@@ -10,5 +10,6 @@ import { Fighter } from './entities/fighter.entity';
   ],
   controllers: [FightersController],
   providers: [FightersService],
+  exports:[FightersService]
 })
 export class FightersModule {}
