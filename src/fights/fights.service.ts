@@ -5,6 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Fight } from './entities/fight.entity';
 import { Repository } from 'typeorm';
 import { Fighter } from 'src/fighters/entities/fighter.entity';
+import { Event } from 'src/events/entities/event.entity';
 
 @Injectable()
 export class FightsService {
@@ -12,15 +13,26 @@ export class FightsService {
     @InjectRepository(Fight)
     private readonly fightsRepository:Repository<Fight>,
     @InjectRepository(Fighter)
-    private readonly fightersRepository:Repository<Fighter>
+    private readonly fightersRepository:Repository<Fighter>,
+    @InjectRepository(Event)
+    private readonly eventRepository:Repository<Event>
   ){}
 
   async create(createFightDto: CreateFightDto) {
-    const fighterA = this.fightersRepository.findOneBy({id: createFightDto.fighterAId});
-    const fighterB = this.fightersRepository.findOneBy({id: createFightDto.fighterBId});
+    const fighterA = await this.fightersRepository.findOneBy({id: createFightDto.fighterAId});
+    const fighterB = await this.fightersRepository.findOneBy({id: createFightDto.fighterBId});
+    const event = await this.eventRepository.findOneBy({id: createFightDto.eventId});
 
     if(!fighterA || !fighterB){
       throw new NotFoundException('Uno de los peleadores no fue encontrado');
+    }
+
+    if(fighterA.weightClass !== fighterB.weightClass){
+      throw new BadRequestException('El peso de los peleadores debe coincidir');
+    }
+
+    if (!event) {
+      throw new NotFoundException('El evento no fue encontrado');
     }
 
     if (createFightDto.fighterAId === createFightDto.fighterBId) {
@@ -46,6 +58,7 @@ export class FightsService {
       result: createFightDto.result,
       method: createFightDto.method,
       rounds: createFightDto.rounds,
+      event
     });
 
     return await this.fightsRepository.save(fight);

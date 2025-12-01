@@ -18,5 +18,8 @@ export class CreateFightDto {
 
   @IsInt()
   rounds: number;
+
+  @IsInt()
+  eventId: number;
 }
 

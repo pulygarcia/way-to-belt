@@ -9,6 +9,7 @@ import { FightersModule } from './fighters/fighters.module';
 import { ReportsModule } from './reports/reports.module';
 import { FightsModule } from './fights/fights.module';
 import { EventsModule } from './events/events.module';
+import { BonussesModule } from './bonusses/bonusses.module';
 
 @Module({
   imports: [
@@ -38,7 +39,8 @@ import { EventsModule } from './events/events.module';
     FightersModule,
     ReportsModule,
     FightsModule,
-    EventsModule
+    EventsModule,
+    BonussesModule
   ],
   controllers: [AppController],
   providers: [AppService],
