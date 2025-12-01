@@ -7,6 +7,8 @@ import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import { FightersModule } from './fighters/fighters.module';
 import { ReportsModule } from './reports/reports.module';
+import { FightsModule } from './fights/fights.module';
+import { EventsModule } from './events/events.module';
 
 @Module({
   imports: [
@@ -34,7 +36,9 @@ import { ReportsModule } from './reports/reports.module';
     UserModule,
     AuthModule,
     FightersModule,
-    ReportsModule
+    ReportsModule,
+    FightsModule,
+    EventsModule
   ],
   controllers: [AppController],
   providers: [AppService],
