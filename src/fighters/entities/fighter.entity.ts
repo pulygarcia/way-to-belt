@@ -1,5 +1,7 @@
+import { Bonus } from 'src/bonusses/entities/bonuss.entity';
+import { Fight } from 'src/fights/entities/fight.entity';
 import { WeightClass } from 'src/types/fighter';
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
 
 export const weights = [
     'Peso Mosca', 'Peso Gallo',  'Peso Pluma', 'Peso Ligero',
@@ -43,5 +45,15 @@ export class Fighter {
 
   @Column('int')
   draws: number;
+
+  @OneToMany(() => Bonus, bonus => bonus.fighter)
+  bonuses: Bonus[];
+
+  @OneToMany(() => Fight, fight => fight.fighterA)
+  fightsAsA: Fight[];
+
+  @OneToMany(() => Fight, fight => fight.fighterB)
+  fightsAsB: Fight[];
+
 }
 

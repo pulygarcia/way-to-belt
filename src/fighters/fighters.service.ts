@@ -34,7 +34,22 @@ export class FightersService {
   }
 
   async findOne(id: number) {
-    const fighter = await this.fighterRepository.findOneBy({id});
+    const fighter = await this.fighterRepository.findOne(
+      {
+        where: {id}, 
+        relations:[
+          'bonuses',
+          'fightsAsA',
+          'fightsAsA.event',//get event of that fight
+          'fightsAsB',
+          'fightsAsB.event',
+          'fightsAsA.fighterA',//get both fighter names of that fight (A & B)
+          'fightsAsA.fighterB',
+          'fightsAsB.fighterA',
+          'fightsAsB.fighterB',
+        ]
+      }
+    );
 
     if (!fighter) throw new NotFoundException('Peleador no encontrado');
     
