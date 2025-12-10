@@ -31,11 +31,16 @@ export class EventsService {
   }
 
   async findAll() {
-    return await this.eventRepository.find({relations:['fights']});
+    return await this.eventRepository.find({relations:['fights','fights.fighterA','fights.fighterB']});
   }
 
   async findOne(id: number) {
-    const event = await this.eventRepository.findOne({ where: { id } });
+    const event = await this.eventRepository.findOne(
+      {
+        where: { id }, 
+        relations:['fights','fights.fighterA','fights.fighterB'] 
+      },
+    );
     if (!event) throw new NotFoundException('Evento no encontrado');
     return event;
   }

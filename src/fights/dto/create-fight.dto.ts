@@ -1,4 +1,4 @@
-import { IsDateString, IsInt, IsString } from "class-validator";
+import { IsDateString, IsInt, IsOptional, IsString } from "class-validator";
 
 export class CreateFightDto {
   @IsInt()
@@ -10,14 +10,17 @@ export class CreateFightDto {
   @IsDateString()
   date: string;
 
+  @IsOptional()
   @IsString()
-  result: string;
+  result?: string;
 
+  @IsOptional()
   @IsString()
-  method: string;
+  method?: string;
 
+  @IsOptional()
   @IsInt()
-  rounds: number;
+  rounds?: number;
 
   @IsInt()
   eventId: number;

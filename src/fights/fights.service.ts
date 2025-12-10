@@ -39,6 +39,21 @@ export class FightsService {
       throw new BadRequestException('Un peleador no puede pelear contra el mismo');
     }
 
+    //avoid same fighter having multiple fights in the same event
+    const eventFights = await this.eventRepository.find({
+      where: {
+        id: createFightDto.eventId
+      },
+      relations: ['fights','fights.fighterA', 'fights.fighterB'],
+    });
+
+    if(eventFights.find(e => e.fights?.some(f => f.fighterA?.id === createFightDto.fighterAId || f.fighterB?.id === createFightDto.fighterAId))){
+      throw new BadRequestException(`${fighterA.firstName + ' ' + fighterA.lastName} ya se encuentra en el evento`);
+    }
+    if(eventFights.find(e => e.fights?.some(f => f.fighterB?.id === createFightDto.fighterBId || f.fighterA?.id === createFightDto.fighterBId))){
+      throw new BadRequestException(`${fighterB.firstName + ' ' + fighterB.lastName} ya se encuentra en el evento`);
+    }
+
     const existingFight = await this.fightsRepository.findOne({
       where: [ 
         //Avoid add same fight regardless of the order of the fighters, example (Mcgregor vs Khabib) - (Khabib vs Mcgregor).

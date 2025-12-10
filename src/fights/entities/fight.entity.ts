@@ -16,14 +16,14 @@ export class Fight {
   @Column()
   date: Date;
 
-  @Column()
-  result: string;
+  @Column({nullable: true})
+  result?: string;
 
-  @Column()
-  method: string;
+  @Column({nullable: true})
+  method?: string;
 
-  @Column()
-  rounds: number;
+  @Column({nullable: true})
+  rounds?: number;
 
   @ManyToOne(() => Event, event => event.fights)
   event: Event;
