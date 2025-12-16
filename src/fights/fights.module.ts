@@ -5,9 +5,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Fight } from './entities/fight.entity';
 import { Fighter } from 'src/fighters/entities/fighter.entity';
 import { Event } from 'src/events/entities/event.entity';
+import { FightStats } from 'src/fight-stats/entities/fight-stats.entity';
 
 @Module({
-  imports:[TypeOrmModule.forFeature([Fight, Fighter, Event])],
+  imports:[TypeOrmModule.forFeature([Fight, Fighter, Event, FightStats])],
   controllers: [FightsController],
   providers: [FightsService],
 })

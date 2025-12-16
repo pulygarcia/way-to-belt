@@ -1,0 +1,6 @@
+export enum FightStatus {
+    SCHEDULED = 'PROGRAMADA',
+    FINALIZED = 'FINALIZADA',
+    CANCELED = 'CANCELADA',
+    POSTPONED = 'POSPUESTA',
+}

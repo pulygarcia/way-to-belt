@@ -1,18 +1,22 @@
-import { IsString, IsInt, Min, Max, IsEnum } from 'class-validator';
+import { IsString, IsInt, Min, Max, IsEnum, MaxLength } from 'class-validator';
 import { WeightClass } from 'src/types/fighter';
 import { weights } from '../entities/fighter.entity';
 
 export class CreateFighterDto {
   @IsString()
+  @MaxLength(30)
   firstName: string;
 
   @IsString()
+  @MaxLength(30)
   lastName: string;
 
   @IsString()
+  @MaxLength(30)
   nickname: string;
 
   @IsString()
+  @MaxLength(30)
   nationality: string;
 
   @IsEnum(weights, { message: 'La categoría de peso no es válida' })

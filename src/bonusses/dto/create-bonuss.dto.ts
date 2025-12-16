@@ -1,4 +1,4 @@
-import { IsEnum, IsInt } from 'class-validator';
+import { IsEnum, IsInt, Max } from 'class-validator';
 import { BonusType } from '../entities/bonuss.entity';
 
 
@@ -16,6 +16,7 @@ export class CreateBonussDto {
   eventId: number;
 
   @IsInt()
+  @Max(100000)
   amount: number;
 }
 

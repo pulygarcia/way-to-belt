@@ -1,6 +1,8 @@
 import { Event } from "src/events/entities/event.entity";
+import { FightStats } from "src/fight-stats/entities/fight-stats.entity";
 import { Fighter } from "src/fighters/entities/fighter.entity";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { FightStatus } from "src/types/fight";
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Fight {
@@ -13,11 +15,11 @@ export class Fight {
   @ManyToOne(() => Fighter)
   fighterB: Fighter;
 
-  @Column()
-  date: Date;
+  @OneToMany(() => FightStats, stats => stats.fight)
+  stats: FightStats[];
 
-  @Column({nullable: true})
-  result?: string;
+  @ManyToOne(() => Fighter, { nullable: true })//null if status is scheduled
+  winner?: Fighter; //winner fighter, or null if Draw/No Contest. 
 
   @Column({nullable: true})
   method?: string;
@@ -27,5 +29,8 @@ export class Fight {
 
   @ManyToOne(() => Event, event => event.fights)
   event: Event;
+
+  @Column({ type: 'enum', enum: FightStatus, default: FightStatus.SCHEDULED })
+  status: FightStatus;
 }
 

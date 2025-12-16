@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { FightsService } from './fights.service';
 import { CreateFightDto } from './dto/create-fight.dto';
-import { UpdateFightDto } from './dto/update-fight.dto';
+import { UpdateFightDetailsDto } from './dto/update-fight-details.dto';
 
 @Controller('fights')
 export class FightsController {
@@ -23,8 +23,8 @@ export class FightsController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateFightDto: UpdateFightDto) {
-    return this.fightsService.update(+id, updateFightDto);
+  update(@Param('id') id: string, @Body() updateFightDetailsDto: UpdateFightDetailsDto) {
+    return this.fightsService.updateDetails(+id, updateFightDetailsDto);
   }
 
   @Delete(':id')
