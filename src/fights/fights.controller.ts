@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { FightsService } from './fights.service';
 import { CreateFightDto } from './dto/create-fight.dto';
 import { UpdateFightDetailsDto } from './dto/update-fight-details.dto';
+import { UpdateFightResultDto } from './dto/update-fight-result.dto';
 
 @Controller('fights')
 export class FightsController {
@@ -23,8 +24,13 @@ export class FightsController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateFightDetailsDto: UpdateFightDetailsDto) {
+  updateDetails(@Param('id') id: string, @Body() updateFightDetailsDto: UpdateFightDetailsDto) {
     return this.fightsService.updateDetails(+id, updateFightDetailsDto);
+  }
+
+  @Patch(':id/result')
+  updateResult(@Param('id') id: string, @Body() updateFightResultDto: UpdateFightResultDto) {
+    return this.fightsService.updateResult(+id, updateFightResultDto);
   }
 
   @Delete(':id')
