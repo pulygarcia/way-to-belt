@@ -31,7 +31,7 @@ export class EventsService {
   }
 
   async findAll() {
-    return await this.eventRepository.find({relations:['fights','fights.fighterA','fights.fighterB']});
+    return await this.eventRepository.find({relations:['fights','fights.fighterA','fights.fighterB', 'fights.winner']});
   }
 
   async findOne(id: number) {

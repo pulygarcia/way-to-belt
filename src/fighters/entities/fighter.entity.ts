@@ -47,6 +47,9 @@ export class Fighter {
   @Column('int')
   draws: number;
 
+  @Column('int', { default: 999 })
+  rankingPosition: number;
+
   @OneToMany(() => Bonus, bonus => bonus.fighter)
   bonuses: Bonus[];
 

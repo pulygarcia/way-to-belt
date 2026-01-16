@@ -37,16 +37,21 @@ export class FightersService {
     const fighter = await this.fighterRepository.findOne(
       {
         where: {id}, 
-        relations:[
+        relations: [
           'bonuses',
           'fightsAsA',
-          'fightsAsA.event',//get event of that fight
+          'fightsAsA.event',
+          'fightsAsA.fighterA',
+          'fightsAsA.fighterB',
+          'fightsAsA.stats',
+          'fightsAsA.winner',
+          
           'fightsAsB',
           'fightsAsB.event',
-          'fightsAsA.fighterA',//get both fighter names of that fight (A & B)
-          'fightsAsA.fighterB',
           'fightsAsB.fighterA',
           'fightsAsB.fighterB',
+          'fightsAsB.stats',
+          'fightsAsB.winner',
         ]
       }
     );

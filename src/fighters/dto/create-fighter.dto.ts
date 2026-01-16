@@ -48,4 +48,8 @@ export class CreateFighterDto {
   @IsInt()
   @Min(0)
   draws: number;
+
+  @IsInt()
+  @Min(0)
+  rankingPosition: number;
 }
