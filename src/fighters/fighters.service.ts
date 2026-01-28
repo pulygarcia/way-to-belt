@@ -61,6 +61,13 @@ export class FightersService {
     return fighter;
   }
 
+  async findLatest() {
+    return await this.fighterRepository.find({
+      order: { createdAt: 'DESC' },
+      take: 5,
+    });
+  }
+
   async update(id: number, updateFighterDto: UpdateFighterDto) {
     const fighter = await this.findOne(id);
 

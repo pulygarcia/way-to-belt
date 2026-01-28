@@ -19,6 +19,11 @@ export class FightersController {
     return this.fightersService.findAll();
   }
 
+  @Get('latest')
+  findLatest() {
+    return this.fightersService.findLatest();
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.fightersService.findOne(+id);

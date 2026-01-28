@@ -2,7 +2,7 @@ import { Bonus } from 'src/bonusses/entities/bonuss.entity';
 import { FightStats } from 'src/fight-stats/entities/fight-stats.entity';
 import { Fight } from 'src/fights/entities/fight.entity';
 import { WeightClass } from 'src/types/fighter';
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, CreateDateColumn } from 'typeorm';
 
 export const weights = [
   'Peso Mosca', 'Peso Gallo',  'Peso Pluma', 'Peso Ligero',
@@ -62,5 +62,7 @@ export class Fighter {
   @OneToMany(() => FightStats, fightStats => fightStats.fighter)
   fightStats: FightStats[];
 
+  @CreateDateColumn()
+  createdAt: Date;
 }
 
